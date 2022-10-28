@@ -32,7 +32,7 @@ class shiftController {
             const lastData:any = await shifts.findOne({
                 
                     order: [ [ 'createdAt', 'DESC' ]],
-                });
+            });
                 lastData.finishedAt = finishedAt;
                 await lastData.save({where:{id:lastData.id}});
                 res.end(`FinishedAt to ID: ${lastData.id} was added`);

@@ -6,72 +6,71 @@ import shiftController from './controllers/shiftController';
 import userController from './controllers/userController';
 const model = require ('./models/models');
 import sequelize from './db';
+import pageNotFoundController from './controllers/404Controller';
 
 const port = process.env.PORT || 3031;
 
 const start = async ()=> {
-try {
-Http.createServer(async (req, res)=>{
-    if(req.method == 'GET'){
-        switch(req.url) {
-            case '/items': 
-                itemController.getItem(req, res);
-                break;
+    try {
+        Http.createServer(async (req, res)=>{
+        if(req.method == 'GET') {
+            switch(req.url) {
 
-            case '/lastShift':
-                shiftController.getLastShift(req, res);
-                break;
+                case '/items': 
+                    itemController.getItem(req, res);
+                    break;
 
-            default:
-                page404(req, res);
-                break;
+                case '/lastShift':
+                    shiftController.getLastShift(req, res);
+                    break;
+
+                default:
+                    pageNotFoundController.showPage(req, res);
+                    break;
+            }
         }
-    }
-    else {
-        switch(req.url) {
-            case '/createItem': 
-                itemController.createItem(req, res);
-                break;
+        else {
 
-            case '/startShift':
-                shiftController.startShift(req, res);
-                break;
+            switch(req.url) {
+                case '/createItem': 
+                    itemController.createItem(req, res);
+                    break;
+
+                case '/startShift':
+                    shiftController.startShift(req, res);
+                    break;
             
-            case '/finishShift':
-                shiftController.finishShift(req, res);
-                break;
+                case '/finishShift':
+                    shiftController.finishShift(req, res);
+                    break;
 
-            case '/createSell':
-                sellController.createSell(req, res);
-                break;
+                case '/createSell':
+                    sellController.createSell(req, res);
+                    break;
             
-            case '/registration':
-                userController.registartion(req, res);
-                break;
+                case '/registration':
+                    userController.registartion(req, res);
+                    break;
 
-            case '/login':
-                userController.login(req, res);
-                break;
+                case '/login':
+                    userController.login(req, res);
+                    break;
 
-            default:
-                page404(req, res);
-                break;
+                default:
+                    pageNotFoundController.showPage(req, res);
+                    break;
+            }
+
         }
-
-    }
 
 
 }).listen(port, ()=>{
     console.log(`Server is working on ${port}`);
 })
-}
-catch(e) {
-    console.log(e);
-}
-
-function page404 (req:any, res:any) {
-    res.end('404, Not Found');
-};
+    }
+    catch(e) {
+        console.log(e);
+    }
 
     await sequelize.authenticate();
     await sequelize.sync();

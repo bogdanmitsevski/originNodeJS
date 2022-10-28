@@ -22,7 +22,7 @@ class sellController {
                 res.statusCode = 400;
                 res.end('You need to create new Item at first');
             }
-            else if(ItemsNumber==1){
+            else if(ItemsNumber==1) {
             
                 const shiftId = SellActiveShift.id;
                 const itemId = ItemActiveSell.id

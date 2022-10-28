@@ -19,6 +19,7 @@ class itemController {
             const {name, price} = requestParseBody;
 
             const checkItem = await Items.findOne({where: {name}});
+            
             if(checkItem) {
                 res.end(`Error.Item with ${name} was already created`);
             }
